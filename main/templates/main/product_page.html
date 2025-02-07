@@ -11,7 +11,7 @@
 
 {% block body %}
 {% include "main/base.html" %}
-
+{% csrf_token %}
 <div class="categories">
     <ul>
         <li><a href="{% url 'main:product_page' %}"><b>Все категории</a></li>

@@ -3,6 +3,7 @@ from user.models import User
 from django.db.models import Sum
 
 
+
 class ProductsCategory(models.Model):
 
     name = models.CharField("Категории", max_length=250)
@@ -47,23 +48,19 @@ class Table(models.Model):
 
 
 class Basket(models.Model):
-    STATUS_CHOICES = [
-        ("В ожидании", "В ожидании"),
-        ("Готово", "Готово"),
-        ("Оплачено", "Оплачено"),
-    ]
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Products, on_delete=models.CASCADE)
     quantity = models.PositiveSmallIntegerField(default=0)
     creating_time_stamp = models.DateTimeField(auto_now_add=True)
     table = models.ForeignKey("Table", on_delete=models.CASCADE,  null=True, blank=True)  # Привязываем к столу
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="waiting")
+
+    
     class Meta:
         verbose_name = "Basket"
         verbose_name_plural = "Baskets"
 
     def __str__(self):
-        return f"Корзина {self.user.username} (Стол {self.table.table_number if self.table else 'Не указан'} ({self.get_status_display()})"
+        return f"Корзина {self.user.username} (Стол {self.table.table_number if self.table else 'Не указан'})"
     
     def sum(self): 
         return self.product.price * self.quantity

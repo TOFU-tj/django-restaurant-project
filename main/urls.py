@@ -13,4 +13,5 @@ urlpatterns = [
     path('baskets/remove/<int:basket_id>/', views.basket_remove, name='basket_remove'),
     # path('set_table/<int:basket_id>/', views.set_table, name='set_table'),
 
+
 ]

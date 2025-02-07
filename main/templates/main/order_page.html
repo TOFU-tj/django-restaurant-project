@@ -6,36 +6,9 @@
 {% endblock %}
 
 {% block body %}
+{% include "main/base.html" %}
 <div class="container">
     <h2 class="title">Корзина</h2>
-
-    <!-- Форма выбора стола для всего заказа -->
-    <div class="select-table-form">
-        <form action="{% url 'main:order_page' %}" method="post">
-            {% csrf_token %}
-            <select name="table_id" required>
-                <option value="">Выберите стол</option>
-                {% for table in tables %}
-                    <option value="{{ table.id }}" {% if table.id == basket.table.id %}selected{% endif %}>{{ table.table_number }}</option>
-                {% endfor %}
-            </select>
-            <button type="submit">Выбрать стол</button>
-        </form>
-    </div>
-
-    <!-- Форма выбора статуса для всего заказа -->
-    <div class="select-status-form">
-        <form action="{% url 'main:order_page' %}" method="post">
-            {% csrf_token %}
-            <select name="status_id" required>
-                <option value="">Выберите статус</option>
-                <option value="waiting" {% if basket.status == 'waiting' %}selected{% endif %}>В ожидании</option>
-                <option value="ready" {% if basket.status == 'ready' %}selected{% endif %}>Готово</option>
-                <option value="paid" {% if basket.status == 'paid' %}selected{% endif %}>Оплачено</option>
-            </select>
-            <button type="submit">Обновить статус</button>
-        </form>
-    </div>
 
     <div class="order-list">
         <table>
@@ -45,9 +18,10 @@
                     <th>Количество</th>
                     <th>Цена за порцию</th>
                     <th>Заказ на сумму</th>
-                    <th>Стол</th>
-                    {% comment %} <th>Статус</th> {% endcomment %}
+                    {% comment %} <th>Стол</th> {% endcomment %}
                     <th>Удалить</th>
+                    {% comment %} <th>Статус</th> {% endcomment %}
+                    
                 </tr>
             </thead>
             <tbody>
@@ -57,17 +31,18 @@
                     <td>{{ basket.quantity }}</td>
                     <td>{{ basket.product.price }}₽</td>
                     <td>{{ basket.sum }}</td>
-                    <td>
-                        {% if basket.table %}
+                    {% comment %} <td> {% endcomment %}
+                        {% comment %} {% if basket.table %}
                             {{ basket.table.table_number }}
                         {% else %}
                             Не выбран
-                        {% endif %}
-                    </td>
+                        {% endif %} {% endcomment %}
+                    {% comment %} </td> {% endcomment %}
                     {% comment %} <td>{{ basket.status }}</td>  {% endcomment %}
                     <td>
                         <form action="{% url 'main:basket_remove' basket.id %}" method="post">
                             {% csrf_token %}
+                            {% comment %} <form action="{% url 'main:basket_remove' basket.id %}" method="post"> {% endcomment %}
                             <button type="submit" class="delete">Удалить</button>
                         </form>
                     </td>
@@ -78,16 +53,15 @@
     </div>
 
     <div class="summary">
-        <p><b>Статус:</b> {{ order_status}}</p>
+        {% comment %} <p><b>Статус:</b>{{ order_status}}</p> {% endcomment %}
         <p><b>Общая стоимость:</b> {{ order_total }}₽</p>
         <p><b>Всего товаров: {{ order_quantity }} товаров</b></p>
     </div>
 
     <div class="buttons">
-        <form action="#" method="post">
-            {% csrf_token %}
-            <button type="submit" class="create">Создать заказ</button>
-        </form>
+        <a href="{% url 'orders:order_create' %}">
+            <button type="button" class="create">Создать заказ</button>
+        </a>
     </div>
 </div>
 {% endblock %}

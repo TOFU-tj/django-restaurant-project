@@ -3,7 +3,6 @@ from django.shortcuts import render, get_object_or_404, redirect
 from main.models import Products, ProductsCategory, Basket, Table 
 from django.http import HttpResponseRedirect
 from django.contrib import messages
-from main.forms import OrderForm
 
 
 def product_page(request, category_id=None):
@@ -25,30 +24,17 @@ def product_page(request, category_id=None):
 @login_required
 def order_page(request):
     baskets = Basket.objects.filter(user=request.user)
-
-    # Обработка выбора стола и статуса
-    if request.method == "POST":
-        # Обработка выбора стола
-        table_id = request.POST.get("table_id")
-        if table_id:
-            table = get_object_or_404(Table, id=table_id)
-            baskets.update(table=table)
-        
-        status_id = request.POST.get("status_id")
-        if status_id:
-            baskets.update(status=status_id)
-
-    order_status = baskets.first().status if baskets.exists() else "Не выбран"
     
     order_total = sum(basket.product.price * basket.quantity for basket in baskets)
     order_quantity = sum(basket.quantity for basket in baskets)
+    
 
     context = {
         'baskets': baskets,
         'order_total': order_total,
-        'tables': Table.objects.all(),
+   
         'order_quantity': order_quantity,
-        'order_status': order_status,  # Передаем общий статус
+
     }
     return render(request, 'main/order_page.html', context)
 
@@ -82,37 +68,6 @@ def basket_remove(request, basket_id):
         basket.delete()  # Удаляем корзину
         return redirect(request.META.get('HTTP_REFERER', '/'))  # Перенаправляем обратно на предыдущую страницу
     return redirect('index')
-
-
-
-
-
-
-
-
-# def set_table(request, basket_id):
-#     if request.method == 'POST':
-#         # Получаем корзину по ID и проверяем, что корзина принадлежит текущему пользователю
-#         basket = get_object_or_404(Basket, id=basket_id, user=request.user)
-        
-#         # Получаем ID выбранного стола из POST-запроса
-#         table_id = request.POST.get("table_id")
-        
-#         # Находим выбранный стол
-#         table = get_object_or_404(Table, id=table_id)
-
-#         # Устанавливаем выбранный стол для всех товаров в корзине текущего пользователя
-#         baskets = Basket.objects.filter(user=request.user)
-#         for item in baskets:
-#             item.table = table
-#             item.save()
-
-#         # После того как стол выбран для всех товаров, редиректим на страницу с заказом
-#         return redirect('main:order_page')
-    
-#     # Если не POST-запрос, просто перенаправляем на страницу с заказом
-#     return redirect('main:order_page')
-
 
 
 
