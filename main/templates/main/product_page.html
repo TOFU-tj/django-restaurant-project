@@ -14,7 +14,7 @@
 {% csrf_token %}
 <div class="categories">
     <ul>
-        <li><a href="{% url 'main:product_page' %}"><b>Все категории</a></li>
+        <li><a href="{% url 'index' %}"><b>Все категории</a></li>
         {% for category in categories %}
             <li><a href="{% url 'main:product_category' category.id %}">{{ category.name }}</a></li>
         {% endfor %}
@@ -22,7 +22,7 @@
 </div>
 
 <div class="goodsitems">
-    {% for product in products %}
+    {% for product in object_list %}
         <div class="goods">
             <div class="image">
                 {% if product.image %}

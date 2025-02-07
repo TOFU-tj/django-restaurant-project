@@ -24,25 +24,12 @@
         {% comment %} <img src="{% static 'main/img/logo.png' %}" alt="logo"> {% endcomment %}
         <ul>
             <li><a href="{% url 'index' %}">МЕНЮ</a></li>
-            <li><a href="{% url 'main:tracking_page' %}">СТАТУС ЗАКАЗА</a></li>
+            {% comment %} <li><a href="{% url 'main:tracking_page' %}">СТАТУС ЗАКАЗА</a></li> {% endcomment %}
+            <li><a href="{% url 'main:order_page' %}">Корзина</a></li>
             
             {% if user.is_authenticated %}
                 {% if user.is_staff %}
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>ЗАКАЗ</b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{% url 'main:order_page' %}">СОЗДАТЬ ЗАКАЗ</a></li>
-                            <!-- Вложенный дропдаун -->
-                            <li class="dropdown-submenu">
-                                <a href="#">СОРТИРОВКА ЗАКАЗА</a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">По дате</a></li>
-                                    <li><a href="#">По статусу</a></li>
-                                    <li><a href="#">По сумме</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
+
                 {% endif %}
             {% endif %}
         </ul>
@@ -54,7 +41,6 @@
                         <i class='bx bxs-user-circle'></i>
                     </a>
                     <ul class="dropdown-menu">
-                        {% comment %} <li><a href="{% url 'user:profile' %}">PROFILE</a></li> {% endcomment %}
                         {% if user.is_superuser or user.is_staff %}
                             <li><a href="{% url 'admin:index' %}">ADMIN</a></li>
                         {% endif %}
@@ -69,7 +55,7 @@
                     <a href="#"><i class='bx bxs-user-circle'></i></a>
                     <ul class="dropdown-menu">
                         <li><a href="{% url 'user:login' %}">Log In</a></li>
-                        {% comment %} <li><a href="{% url 'user:registration' %}">Register</a></li> {% endcomment %}
+                        <li><a href="{% url 'user:registration' %}">Register</a></li>
                     </ul>
                 </li>
             </ul>

@@ -4,9 +4,8 @@
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'orders/css/order_create/order_create.css' %}">
 {% endblock %}
-
+{% block title %}<title>Оформление заказа</title>{% endblock %}
 {% block body %}
-{% include "main/base.html" %}
 <div class="container">
     <h2 class="title">Оформление заказа</h2>
 
@@ -14,12 +13,22 @@
         {% csrf_token %}
         
         <div class="order-details">
-            <label for="table_number"><strong>Номер стола:</strong></label>
-            <input type="number" id="table_number" name="table_number" required placeholder="Введите номер стола">
-            
-            <p><strong>Товары:</strong> {{ products }}</p>
+            {{ form.table_number.label_tag }}
+            {{ form.table_number }}
+
+            <p><strong>Товары:</strong></p>
+            {% if basket %}
+                <ul>
+                    {% for item in basket %}
+                        <li>{{ item.product.product_name }} - {{ item.quantity }} шт.</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Ваша корзина пуста.</p>
+            {% endif %}
+
             <p><strong>Цена:</strong> {{ price }}</p>
-            <p><strong>Сумма к оплате:</strong> {{ total_price}}</p>
+            <p><strong>Сумма к оплате:</strong> {{ total_price }}</p>
         </div>
 
         <div class="buttons">
@@ -29,3 +38,4 @@
     </form>
 </div>
 {% endblock %}
+

@@ -19,15 +19,14 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from main.views import product_page
+from main.views import ProductsListView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', product_page, name='index' ),
+    path('', ProductsListView.as_view(), name='index' ),
     path('main/', include('main.urls', namespace='main')),
     path ('user/', include('user.urls', namespace='user')),
-    path('orders,', include('orders.urls', namespace='orders'))
-    
+    path('orders/', include('orders.urls', namespace='orders'))
     
 ]
 

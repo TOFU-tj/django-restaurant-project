@@ -14,8 +14,8 @@ class Order(models.Model):
     
     table_number = models.IntegerField()
     basket_history = models.JSONField( default=dict)
-    created = models.DateTimeField(auto_now_add=False)
-    initiator = models.ForeignKey(User, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+    initiator = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     status = models.SmallIntegerField(default=WAITING, choices=STATUSES)
     
     class Meta:

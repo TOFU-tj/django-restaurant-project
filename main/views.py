@@ -1,23 +1,46 @@
+from typing import Any
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from main.models import Products, ProductsCategory, Basket, Table 
-from django.http import HttpResponseRedirect
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.contrib import messages
+from django.views.generic.list import ListView
+from django.views.generic.edit import CreateView
 
 
-def product_page(request, category_id=None):
-    if category_id: 
-        category = ProductsCategory.objects.get(id=category_id)
-        products = Products.objects.filter(category=category)
-    else : 
-        products =  Products.objects.all()
+
+ 
+class ProductsListView(ListView):
+    model = Products
+    template_name = 'main/product_page.html'
+    
+    def get_queryset(self):
+        queryset = super(ProductsListView, self).get_queryset()
+        category_id = self.kwargs.get('category_id')
+        return queryset.filter(category_id = category_id) if category_id else queryset
+    
+    
+    def get_context_data(self, **kwargs):
+        context = super(ProductsListView, self).get_context_data(**kwargs)
+        context ["categories"] = ProductsCategory.objects.all() 
+        return context
+    
+    
+
+# def product_page(request, category_id=None):
+#     if category_id: 
+#         category = ProductsCategory.objects.get(id=category_id)
+#         products = Products.objects.filter(category=category)
+#     else : 
+#         products =  Products.objects.all()
         
-    context = {
-        'tables' : Table.objects.all(),
-        'categories' : ProductsCategory.objects.order_by('name'),
-        'products' : products
-    }
-    return render(request, 'main/product_page.html', context)
+#     context = {
+#         'categories' : ProductsCategory.objects.order_by('name'),
+#         'products' : products
+#     }
+#     return render(request, 'main/product_page.html', context)
+
+
 
 
 
@@ -32,20 +55,16 @@ def order_page(request):
     context = {
         'baskets': baskets,
         'order_total': order_total,
-   
         'order_quantity': order_quantity,
 
     }
     return render(request, 'main/order_page.html', context)
 
 
-
-
-
 @login_required
 def order_add(request, product_id):
-    product = get_object_or_404(Products, id=product_id)  # Получаем продукт
-    quantity = int(request.POST.get('quantity', 1))  # Получаем количество из формы, по умолчанию 1
+    product = Products.objects.get(id=product_id)  
+    quantity = int(request.POST.get('quantity', 1)) 
 
     
     baskets = Basket.objects.filter(user=request.user, product=product)
@@ -61,12 +80,14 @@ def order_add(request, product_id):
 
     return redirect(request.META.get("HTTP_REFERER", "/"))
 
+
+
 @login_required
 def basket_remove(request, basket_id):
     if request.method == 'POST': 
-        basket = get_object_or_404(Basket, id=basket_id)
-        basket.delete()  # Удаляем корзину
-        return redirect(request.META.get('HTTP_REFERER', '/'))  # Перенаправляем обратно на предыдущую страницу
+        basket = Basket.objects.get(id=basket_id)
+        basket.delete() 
+        return redirect(request.META.get('HTTP_REFERER', '/'))  
     return redirect('index')
 
 
