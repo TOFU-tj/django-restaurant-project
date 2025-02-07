@@ -54,6 +54,8 @@ def order_page(request):
 
 
 
+
+
 @login_required
 def order_add(request, product_id):
     product = get_object_or_404(Products, id=product_id)  # Получаем продукт
