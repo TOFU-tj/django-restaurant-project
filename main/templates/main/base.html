@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+{%load static%}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {%block extra_css%} 
+    
+    {%endblock%}
+
+    <link rel="stylesheet" href="{% static 'main/css/base/base.css'%}">
+    <link rel="icon" href="{%static 'main/img/logo.png'%}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    
+    
+    {% block title %}<title>RestaurantMenue</title>{% endblock %}
+</head>
+{%block body%} 
+
+<div class="banner">
+    <div class="navbar">
+        {% comment %} <img src="{% static 'main/img/logo.png' %}" alt="logo"> {% endcomment %}
+        <ul>
+            <li><a href="{% url 'index' %}">МЕНЮ</a></li>
+            <li><a href="{% url 'main:tracking_page' %}">СТАТУС ЗАКАЗА</a></li>
+            
+            {% if user.is_authenticated %}
+                {% if user.is_staff %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>ЗАКАЗ</b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'main:order_page' %}">СОЗДАТЬ ЗАКАЗ</a></li>
+                            <!-- Вложенный дропдаун -->
+                            <li class="dropdown-submenu">
+                                <a href="#">СОРТИРОВКА ЗАКАЗА</a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">По дате</a></li>
+                                    <li><a href="#">По статусу</a></li>
+                                    <li><a href="#">По сумме</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                {% endif %}
+            {% endif %}
+        </ul>
+
+        {% if user.is_authenticated %}
+            <ul class="auth-links">
+                <li class="dropdown">
+                    <a href="#">
+                        <i class='bx bxs-user-circle'></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        {% comment %} <li><a href="{% url 'user:profile' %}">PROFILE</a></li> {% endcomment %}
+                        {% if user.is_superuser or user.is_staff %}
+                            <li><a href="{% url 'admin:index' %}">ADMIN</a></li>
+                        {% endif %}
+                        <li><a href="{% url 'user:logout' %}">LOG OUT</a></li>
+                    </ul>
+                </li>
+            </ul>
+        {% else %}
+            <!-- Для гостей -->
+            <ul class="guest-links">
+                <li class="dropdown">
+                    <a href="#"><i class='bx bxs-user-circle'></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'user:login' %}">Log In</a></li>
+                        {% comment %} <li><a href="{% url 'user:registration' %}">Register</a></li> {% endcomment %}
+                    </ul>
+                </li>
+            </ul>
+        {% endif %}
+    </div>
+</div>
+
+{%endblock%}
+
+{% block extra_js %} {%endblock%}
+</body>
+</html>
