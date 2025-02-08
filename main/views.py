@@ -51,7 +51,6 @@ def order_page(request):
     order_total = sum(basket.product.price * basket.quantity for basket in baskets)
     order_quantity = sum(basket.quantity for basket in baskets)
     
-
     context = {
         'baskets': baskets,
         'order_total': order_total,

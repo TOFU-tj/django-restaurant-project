@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+DOMAIN_NAME = "http://localhost:8000"  
+
 
 # Application definition
 
@@ -65,6 +67,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'main.context_processors.basket'
             ],
         },
     },
@@ -135,3 +138,23 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'user.User'
 LOGIN_URL = '/user/login/'
+
+LOGIN_REDIRECT_URL = '/'
+
+
+# EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+#Sending eMails
+
+import ssl
+import certifi
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 465
+EMAIL_HOST_USER = "dickduckover9000@gmail.com"
+EMAIL_HOST_PASSWORD = "zwmj wdji dute wgrk"
+EMAIL_USE_SSL = True
+
+
+# ssl_context = ssl.create_default_context(cafile=certifi.where())
