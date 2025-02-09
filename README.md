@@ -14,6 +14,10 @@
 🚀 Установка
 
 
+git clone https://github.com/TOFU-tj/django-restaurant-project.git
+
+
+
 активация виртуального окружения 
 python3 -m venv .venv
 
@@ -24,6 +28,8 @@ source .venv/activate/bin
 2. Windows
 .venv\Scripts\activate
 
+3. cd restaurant 
+
 
 pip install -r requirements.txt
 
@@ -33,6 +39,13 @@ pip install Pillow
 
 
 Добавление базы данных
+На macOS может возникнуть ошибка env: python\r: No such file or directory
+
+если она возникла используете эту строку 
+
+sed -i '' -e 's/\r$//' manage.py
+
+потом можете уже добавляйте БД
 
 ./manage.py loaddata main/fixtures/category.json   
 ./manage.py loaddata main/fixtures/goods.json                        
@@ -43,10 +56,7 @@ pip install Pillow
 
 ./manage.py createsuperuser
 
-
-
-git clone https://github.com/твоя-ссылка-на-репо.git
 cd restaurant 
 
 
-👤 Автор: [Твой Никнейм](https://github.com/твой-гит)
+👤 Автор: [TOFU-tj](https://github.com/TOFU-tj))
