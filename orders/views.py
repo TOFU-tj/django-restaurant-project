@@ -60,11 +60,6 @@ class OrderCreateView(LoginRequiredMixin, CreateView):
         return redirect(self.success_url)
 
 
-from django.shortcuts import redirect
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView
-from orders.models import Order
-
 class OrderListView(LoginRequiredMixin, ListView):
     model = Order
     template_name = "orders/order_list.html"
@@ -73,12 +68,12 @@ class OrderListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         queryset = Order.objects.all() if self.request.user.is_superuser or self.request.user.is_staff else Order.objects.filter(initiator=self.request.user)
 
-        # Фильтрация по статусу
+
         status_filter = self.request.GET.get('status')
         if status_filter:
             queryset = queryset.filter(status=status_filter)
 
-        # Фильтрация по номеру стола
+
         table_filter = self.request.GET.get('table_number')
         if table_filter:
             queryset = queryset.filter(table_number__id=table_filter)
@@ -106,11 +101,7 @@ class SuccessTemplateView(TemplateView):
 class CanceledTemplateView(TemplateView): 
     template_name = 'orders/canceled.html'
     
-    
 
-from django.shortcuts import render
-from django.views import View
-from orders.models import Order
 
 class RevenueView(View):
     def get(self, request):
