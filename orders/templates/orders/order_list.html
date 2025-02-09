@@ -19,6 +19,10 @@
             <option value="1" {% if request.GET.status == "1" %}selected{% endif %}>Оплачено</option>
             <option value="2" {% if request.GET.status == "2" %}selected{% endif %}>В ожидании</option>
         </select>
+
+        <label for="table_number">Поиск по номеру стола:</label>
+        <input type="text" name="table_number" id="table_number" value="{{ request.GET.table_number }}" placeholder="Введите номер стола">
+
         <button type="submit">Применить</button>
     </form>
 {% else %}

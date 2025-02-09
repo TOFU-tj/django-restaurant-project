@@ -60,10 +60,10 @@ class OrderCreateView(LoginRequiredMixin, CreateView):
         return redirect(self.success_url)
 
 
-
-
-
-
+from django.shortcuts import redirect
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import ListView
+from orders.models import Order
 
 class OrderListView(LoginRequiredMixin, ListView):
     model = Order
@@ -71,31 +71,19 @@ class OrderListView(LoginRequiredMixin, ListView):
     context_object_name = "orders"
 
     def get_queryset(self):
-        if self.request.user.is_superuser or self.request.user.is_staff:
-            queryset = Order.objects.all()
-        else:
-            queryset = Order.objects.filter(initiator=self.request.user)
-        
+        queryset = Order.objects.all() if self.request.user.is_superuser or self.request.user.is_staff else Order.objects.filter(initiator=self.request.user)
+
+        # Фильтрация по статусу
         status_filter = self.request.GET.get('status')
         if status_filter:
             queryset = queryset.filter(status=status_filter)
 
+        # Фильтрация по номеру стола
+        table_filter = self.request.GET.get('table_number')
+        if table_filter:
+            queryset = queryset.filter(table_number__id=table_filter)
+
         return queryset.order_by('status', '-created')
-
-    def post(self, request, *args, **kwargs):
-        order_id = request.POST.get("order_id")
-        new_status = request.POST.get("status")
-        
-       
-        try:
-            order = Order.objects.get(id=order_id)
-            order.status = int(new_status)
-            order.save()
-        except Order.DoesNotExist:
-            pass  
-        
-        return redirect('orders:order_list')
-
 
 
 
