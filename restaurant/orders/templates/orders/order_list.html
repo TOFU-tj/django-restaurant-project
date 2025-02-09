@@ -1,0 +1,72 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'orders/css/order_list/order_list.css' %}">
+{% endblock %}
+
+{% block body %}
+{% include 'main/base.html' %}
+
+{% if user.is_superuser or user.is_staff %}
+    <h2>Все заказы</h2>
+    <form method="get">
+        <label for="status">Сортировать по статусу:</label>
+        <select name="status" id="status">
+            <option value="">Все статусы</option>
+            <option value="0" {% if request.GET.status == "0" %}selected{% endif %}>Готово</option>
+            <option value="1" {% if request.GET.status == "1" %}selected{% endif %}>Оплачено</option>
+            <option value="2" {% if request.GET.status == "2" %}selected{% endif %}>В ожидании</option>
+        </select>
+
+        <label for="table_number">Поиск по номеру стола:</label>
+        <input type="text" name="table_number" id="table_number" value="{{ request.GET.table_number }}" placeholder="Введите номер стола">
+
+        <button type="submit">Применить</button>
+    </form>
+{% else %}
+    <h2>Ваши заказы</h2>
+{% endif %}
+
+{% for order in orders %}
+    <div class="order">
+        <h3>Заказ #{{ order.id }} ({{ order.get_status_display }})</h3>
+        <p>Дата: {{ order.created }}</p>
+        <p>Стол: {{ order.table_number }}</p>
+        
+        <h4>Состав заказа:</h4>
+        <ul>
+            {% for item in order.basket_history %}
+                <li>{{ item.product }} — {{ item.quantity }} шт. ({{ item.total }} руб.)</li>
+            {% endfor %}
+        </ul>
+        
+        <p><strong>Сумма к оплате:</strong> {{ order.order_total|intcomma }} ₽</p>
+
+        {% if user.is_superuser or user.is_staff %}
+            <form method="post" action="{% url 'orders:order_list' %}">
+                {% csrf_token %}
+                <input type="hidden" name="order_id" value="{{ order.id }}">
+                <label for="status">Изменить статус:</label>
+                <select name="status" id="status">
+                    <option value="0" {% if order.status == 0 %}selected{% endif %}>Готово</option>
+                    <option value="1" {% if order.status == 1 %}selected{% endif %}>Оплачено</option>
+                    <option value="2" {% if order.status == 2 %}selected{% endif %}>В ожидании</option>
+                </select>
+                <button type="submit">Сохранить изменения</button>
+            </form>
+        {% endif %}
+
+        {% if user.is_superuser or user.is_staff %}
+            <form action="{% url 'orders:order_delete' order.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Удалить заказ</button>
+            </form>
+        {% endif %}
+    </div>
+    <hr>
+{% empty %}
+    <p>У вас нет заказов.</p>
+{% endfor %}
+{% endblock %}

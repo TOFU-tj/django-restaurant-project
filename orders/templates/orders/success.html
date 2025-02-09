@@ -1,0 +1,18 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'orders/css/success/success.css' %}">
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h2 class="title">🎉 Заказ оформлен!</h2>
+    <p class="message">Ваш заказ успешно принят в обработку. Ожидайте подтверждения от персонала.</p>
+
+    <div class="buttons">
+        <a href="{% url 'index' %}" class="home">🏠 На главную</a>
+        {% comment %} <a href="{% url 'main:product_page' %}" class="menu">📜 Вернуться в меню</a> {% endcomment %}
+    </div>
+</div>
+{% endblock %}

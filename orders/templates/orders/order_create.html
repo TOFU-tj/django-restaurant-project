@@ -1,0 +1,45 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'orders/css/order_create/order_create.css' %}">
+{% endblock %}
+{% block title %}<title>Оформление заказа</title>{% endblock %}
+{% block body %}
+
+<div class="container">
+    <h2 class="title">Оформление заказа</h2>
+
+    <form action="{% url 'orders:order_create' %}" method="post">
+        {% csrf_token %}
+        
+        <div class="order-details">
+            <label for="{{ form.table_number.id_for_label }}">Выберите стол:</label>
+            {{ form.table_number }}
+    
+            <p><strong>Товары:</strong></p>
+            {% if basket %}
+                <ul>
+                    {% for item in basket %}
+                        <li>{{ item.product.name }} - {{ item.quantity }} шт.</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Ваша корзина пуста.</p>
+            {% endif %}
+                
+            <p><strong>Заказ на имя : {{user.first_name}}</strong></p>
+            <p><strong>Сумма к оплате:</strong> {{ order_total|intcomma }} ₽</p>
+        </div>
+    
+        <div class="buttons">
+            <button type="submit" class="confirm">Подтвердить заказ</button>
+            <a href="{% url 'main:order_page' %}" class="cancel">Отменить</a>
+        </div> 
+    </form>
+</div>
+{% endblock %}
+
+
+

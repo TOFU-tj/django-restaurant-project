@@ -1,0 +1,111 @@
+{% extends "user/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'user/css/register/registration.css' %}">
+{% endblock %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block body %}
+
+
+<div class="logo">
+    {% comment %} <img src="{% static 'main/img/Untitled-1.png' %}" alt="logo"> {% endcomment %}
+</div>
+<div class="register">
+    <div class="wrapper">
+        <h1>Регистрация</h1>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+   
+
+
+            <!-- Отображение поля first_name из формы -->
+            <div class="input-box">
+                {{ form.first_name }}
+                {% if form.first_name.errors %}
+                    <div class="field-errors">
+                        {% for error in form.first_name.errors %}
+                            <p class="error-text">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Отображение поля last_name из формы -->
+            <div class="input-box">
+                {{ form.last_name }}
+                {% if form.last_name.errors %}
+                    <div class="field-errors">
+                        {% for error in form.last_name.errors %}
+                            <p class="error-text">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Отображение поля username из формы -->
+            <div class="input-box">
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <div class="field-errors">
+                        {% for error in form.username.errors %}
+                            <p class="error-text">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Отображение поля email из формы -->
+            <div class="input-box">
+                {{ form.email }}
+                {% if form.email.errors %}
+                    <div class="field-errors">
+                        {% for error in form.email.errors %}
+                            <p class="error-text">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Отображение поля password1 из формы -->
+            <div class="input-box">
+                {{ form.password1 }}
+                {% if form.password1.errors %}
+                    <div class="field-errors">
+                        {% for error in form.password1.errors %}
+                            <p class="error-text">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Отображение поля password2 из формы -->
+            <div class="input-box">
+                {{ form.password2 }}
+                {% if form.password2.errors %}
+                    <div class="field-errors">
+                        {% for error in form.password2.errors %}
+                            <p class="error-text">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Отображение поля image для загрузки фото -->
+
+
+            <!-- Кнопка отправки -->
+            <div class="input-box">
+                <button type="submit">Register</button>
+            </div>
+
+            <div class="register-link">
+                <p>Already have an account? <a href="{% url 'user:login' %}">Log In</a></p>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

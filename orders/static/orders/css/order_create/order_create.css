@@ -1,0 +1,95 @@
+/* Основные стили */
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 25px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Заголовок */
+.title {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Секция заказа */
+.order-details {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.order-details h3 {
+    font-size: 22px;
+    color: #333;
+}
+
+.order-details label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Список товаров */
+.order-details ul {
+    list-style: none;
+    padding: 0;
+}
+
+.order-details li {
+    background: #e9ecef;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+/* Сумма к оплате */
+.order-details p {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Кнопки */
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+button, .cancel, .confirm {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.confirm {
+    background-color: #28a745;
+    color: white;
+}
+
+.confirm:hover {
+    background-color: #218838;
+}
+
+.cancel {
+    background-color: #dc3545;
+    color: white;
+}
+
+.cancel:hover {
+    background-color: #c82333;
+}

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+{%load static%}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static 'main/img/Untitled-1.png' %}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    {% comment %} <title>RADIANT</title> {% endcomment %}
+    <link rel="stylesheet" href="{%static 'user/base.css'%}">
+    <title>{% block title %} Default Title {% endblock %}</title>
+    {%block extra_css%}{% endblock %}
+</head>
+<body>
+    {% block body %}
+    {%endblock%}
+
+</body>
+</html>

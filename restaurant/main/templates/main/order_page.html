@@ -1,0 +1,69 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'main/css/order_page/order_page.css' %}">
+{% endblock %}
+
+{% block body %}
+{% include "main/base.html" %}
+<div class="container">
+    <h2 class="title">Корзина</h2>
+
+    <div class="order-list">
+        <table>
+            <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Количество</th>
+                    <th>Цена за порцию</th>
+                    <th>Заказ на сумму</th>
+                    {% comment %} <th>Стол</th> {% endcomment %}
+                    <th>Удалить</th>
+                    {% comment %} <th>Статус</th> {% endcomment %}
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for basket in baskets %}
+                <tr>
+                    <td>{{ basket.product.name }}</td>
+                    <td>{{ basket.quantity }}</td>
+                    <td>{{ basket.product.price }}₽</td>
+                    <td>{{ basket.sum }}</td>
+                    {% comment %} <td> {% endcomment %}
+                        {% comment %} {% if basket.table %}
+                            {{ basket.table.table_number }}
+                        {% else %}
+                            Не выбран
+                        {% endif %} {% endcomment %}
+                    {% comment %} </td> {% endcomment %}
+                    {% comment %} <td>{{ basket.status }}</td>  {% endcomment %}
+                    <td>
+                        <form action="{% url 'main:basket_remove' basket.id %}" method="post">
+                            {% csrf_token %}
+                            {% comment %} <form action="{% url 'main:basket_remove' basket.id %}" method="post"> {% endcomment %}
+                            <button type="submit" class="delete">Удалить</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="summary">
+        {% comment %} <p><b>Статус:</b>{{ order_status}}</p> {% endcomment %}
+        <p><b>Общая стоимость:</b> {{ order_total|intcomma }}₽</p>
+        <p><b>Всего товаров: {{ order_quantity }} товаров</b></p>
+    </div>
+
+    <div class="buttons">
+        <a href="{% url 'orders:order_create' %}">
+            <button type="button" class="create">Создать заказ</button>
+        </a>
+    </div>
+</div>
+{% endblock %}
+

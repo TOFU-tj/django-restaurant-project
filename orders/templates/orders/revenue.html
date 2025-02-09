@@ -1,0 +1,43 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'orders/css/revenue/revenue.css' %}">
+{% endblock %}
+
+{% block body %}
+  <div class="container">
+    <h2>Расчет выручки за смену</h2>
+  
+    <p><strong>Общая выручка: </strong>{{ total_revenue|intcomma }} ₽</p>
+
+    <h3>Оплаченные заказы:</h3>
+    {% if paid_orders %}
+    <h3 value="0" {% if request.GET.status == "0" %}selected{% endif %}>Готово</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>№ Заказа</th>
+            <th>Стол</th>
+            <th>Сумма</th>
+            <th>Дата</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for order in paid_orders %}
+            <tr>
+              <td>{{ order.id }}</td>
+              <td>{{ order.table_number }}</td>
+              <td>{{ order.order_total|intcomma }} ₽</td>
+              <td>{{ order.created }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>Нет оплаченных заказов за эту смену.</p>
+    {% endif %}
+  </div>
+{% endblock %}
+

@@ -1,0 +1,206 @@
+/* Общий стиль контейнера */
+.container {
+    width: 80%;
+    margin: 20px auto;
+    background: white;
+    padding: 30px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Заголовок */
+.title {
+    background: #4CAF50; /* Зеленый цвет */
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-size: 24px;
+    border-radius: 5px;
+    margin-bottom: 25px;
+}
+
+/* Стиль таблицы */
+.order-list table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+.order-list th, .order-list td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+    font-size: 16px;
+}
+
+.order-list th {
+    background: #333;
+    color: white;
+    font-weight: bold;
+}
+
+.order-list td {
+    background: #f9f9f9;
+}
+
+.order-list tr:hover {
+    background-color: #f1f1f1;
+}
+
+.order-list td form {
+    display: inline-block;
+}
+
+/* Стиль итоговой стоимости */
+.summary {
+    background: #4CAF50; /* Зеленый цвет */
+    color: white;
+    padding: 15px;
+    margin-top: 20px;
+    text-align: left;
+    font-size: 18px;
+    border-radius: 5px;
+}
+
+/* Кнопки */
+.buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 25px;
+    gap: 15px;
+}
+
+button {
+    padding: 12px 25px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: translateY(-4px);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+    transform: translateY(2px);
+}
+
+.delete {
+    background: #f44336; /* Красный цвет */
+    color: white;
+}
+
+/* Стиль для кнопки "Создать заказ" */
+.create {
+    background-color: #4CAF50; /* Зеленый цвет */
+    color: white; /* Белый текст */
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.create:hover {
+    background-color: #45a049; /* Более темный зеленый при наведении */
+}
+
+/* Стиль для кнопки "Удалить" */
+.delete {
+    background-color: #f44336; /* Красный цвет */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete:hover {
+    background-color: #da190b; /* Более темный красный при наведении */
+}
+
+
+/* Стили для формы выбора стола */
+select {
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    width: 180px;
+    margin-right: 10px;
+    transition: all 0.2s ease;
+}
+
+select:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
+
+button[type="submit"] {
+    background: #2196F3; /* Синий цвет */
+    color: white;
+    font-size: 14px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background: #1976D2;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .order-list table th, .order-list table td {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .summary {
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    .buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+.quantity-input {
+    width: 50px;
+    text-align: center;
+}
+
+.decrease, .increase {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.decrease:hover, .increase:hover {
+    background-color: #ddd;
+}
