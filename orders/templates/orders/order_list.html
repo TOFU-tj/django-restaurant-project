@@ -41,6 +41,20 @@
         <p><strong>Сумма к оплате:</strong> {{ order.order_total|intcomma }} ₽</p>
 
         {% if user.is_superuser or user.is_staff %}
+            <form method="post" action="{% url 'orders:order_list' %}">
+                {% csrf_token %}
+                <input type="hidden" name="order_id" value="{{ order.id }}">
+                <label for="status">Изменить статус:</label>
+                <select name="status" id="status">
+                    <option value="0" {% if order.status == 0 %}selected{% endif %}>Готово</option>
+                    <option value="1" {% if order.status == 1 %}selected{% endif %}>Оплачено</option>
+                    <option value="2" {% if order.status == 2 %}selected{% endif %}>В ожидании</option>
+                </select>
+                <button type="submit">Сохранить изменения</button>
+            </form>
+        {% endif %}
+
+        {% if user.is_superuser or user.is_staff %}
             <form action="{% url 'orders:order_delete' order.id %}" method="post">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-danger">Удалить заказ</button>

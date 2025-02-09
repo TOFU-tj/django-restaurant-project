@@ -63,6 +63,8 @@ class OrderCreateView(LoginRequiredMixin, CreateView):
 
 
 
+
+
 class OrderListView(LoginRequiredMixin, ListView):
     model = Order
     template_name = "orders/order_list.html"
@@ -72,16 +74,28 @@ class OrderListView(LoginRequiredMixin, ListView):
         if self.request.user.is_superuser or self.request.user.is_staff:
             queryset = Order.objects.all()
         else:
-
             queryset = Order.objects.filter(initiator=self.request.user)
-        
         
         status_filter = self.request.GET.get('status')
         if status_filter:
             queryset = queryset.filter(status=status_filter)
-        
 
         return queryset.order_by('status', '-created')
+
+    def post(self, request, *args, **kwargs):
+        order_id = request.POST.get("order_id")
+        new_status = request.POST.get("status")
+        
+       
+        try:
+            order = Order.objects.get(id=order_id)
+            order.status = int(new_status)
+            order.save()
+        except Order.DoesNotExist:
+            pass  
+        
+        return redirect('orders:order_list')
+
 
 
 
