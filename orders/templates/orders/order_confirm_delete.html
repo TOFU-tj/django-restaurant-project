@@ -1,0 +1,14 @@
+{% extends "main/base.html" %}
+
+{% block body %}
+  <h2>Подтверждение удаления заказа</h2>
+
+  <p>Вы уверены, что хотите удалить заказ #{{ object.id }}?</p>
+  <p>Этот процесс нельзя отменить.</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Удалить заказ</button>
+    <a href="{% url 'orders:order_list' %}">Отмена</a>
+  </form>
+{% endblock %}

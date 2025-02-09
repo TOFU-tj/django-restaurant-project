@@ -147,8 +147,7 @@ LOGIN_REDIRECT_URL = '/'
 
 #Sending eMails
 
-import ssl
-import certifi
+
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
@@ -160,6 +159,3 @@ EMAIL_USE_SSL = True
 
 #Stripe
 
-STRIPE_PUBLIC_KEY = 'pk_test_51QqYzjGGuVxeejZn2M14rY4vDlzvQ1wGEwIMhMWaaSE1pQWMrzR7VU4Xv0PFWRyYFNlYvDS6J3XAcEEwgVpNiU7H00dEugEKJN'
-STRIPE_SECRET_KEY = 'sk_test_51QqYzjGGuVxeejZn56fL4ch0QWjy8EUdB1meNdACAdnjaxkJUiX16RbwEh7vOdDbxoMm1XHy0bWWWzPl7pfXW1Zh00h1KEOBCX'
-STRIPE_WEBHOOK_SECRET = 'whsec_db1917df8aceee4e58dc63ee02746a3a91838b6152000d636f2707951aa2497c'

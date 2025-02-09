@@ -25,13 +25,8 @@
         <ul>
             <li><a href="{% url 'index' %}">МЕНЮ</a></li>
             {% comment %} <li><a href="{% url 'main:tracking_page' %}">СТАТУС ЗАКАЗА</a></li> {% endcomment %}
+            <li><a href="{% url 'orders:order_list' %}">Заказы</a></li>          
             <li><a href="{% url 'main:order_page' %}">Корзина</a></li>
-            
-            {% if user.is_authenticated %}
-                {% if user.is_staff %}
-
-                {% endif %}
-            {% endif %}
         </ul>
 
         {% if user.is_authenticated %}
@@ -43,6 +38,7 @@
                     <ul class="dropdown-menu">
                         {% if user.is_superuser or user.is_staff %}
                             <li><a href="{% url 'admin:index' %}">ADMIN</a></li>
+                            <li><a href="{% url 'orders:revenue' %}">Расчеты</a></li>
                         {% endif %}
                         <li><a href="{% url 'user:logout' %}">LOG OUT</a></li>
                     </ul>

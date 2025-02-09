@@ -12,13 +12,13 @@ class Order(models.Model):
         (READY, 'готово'),
     )
     
-    # first_name = models.ForeignKey(User,on_delete=models.CASCADE)
     table_number = models.ForeignKey(Table, on_delete=models.CASCADE)
-    basket_history = models.JSONField( default=dict)
+    basket_history = models.JSONField(default=dict)
     created = models.DateTimeField(auto_now_add=True)
     initiator = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     status = models.SmallIntegerField(default=WAITING, choices=STATUSES)
-    
+    order_total = models.DecimalField(max_digits=10, decimal_places=2, default=0)  # Добавляем поле для общей суммы
+
     class Meta:
         verbose_name = ("Order")
         verbose_name_plural = ("Orders")

@@ -55,7 +55,7 @@ class EmailVerificationView(TemplateView):
         code = kwargs['code']
         user = User.objects.get(email=kwargs['email'])
         email_verifications = EmailVerification.objects.filter(user=user, code=code)
-        if email_verifications.exists() : #and not email_verifications.first().is_expired
+        if email_verifications.exists() : 
             verification = email_verifications.first()
             if not verification.is_expired():
                 
@@ -69,24 +69,6 @@ class EmailVerificationView(TemplateView):
 
 
 
-
-# def registration(request): 
-#     if request.method == "POST": 
-#         form = UserRegistrationForm(data=request.POST)
-#         if form.is_valid(): 
-#             user = form.save()
-#             auth.login(request, user)
-#             messages.success(request, 'Поздравляем, вы успешно зарегистрировались!')
-#             return HttpResponseRedirect(reverse('index'))
-
-
-#     else: 
-#         form = UserRegistrationForm()
-        
-#     context = {
-#         'form' : form
-#     }
-#     return render(request, 'user/register.html', context)
         
             
 

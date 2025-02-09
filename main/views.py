@@ -25,23 +25,6 @@ class ProductsListView(ListView):
         context ["categories"] = ProductsCategory.objects.all() 
         return context
     
-    
-
-# def product_page(request, category_id=None):
-#     if category_id: 
-#         category = ProductsCategory.objects.get(id=category_id)
-#         products = Products.objects.filter(category=category)
-#     else : 
-#         products =  Products.objects.all()
-        
-#     context = {
-#         'categories' : ProductsCategory.objects.order_by('name'),
-#         'products' : products
-#     }
-#     return render(request, 'main/product_page.html', context)
-
-
-
 
 
 @login_required
