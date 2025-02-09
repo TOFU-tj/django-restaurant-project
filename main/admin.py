@@ -11,7 +11,7 @@ admin.site.register(Table)
 @admin.register(Products)
 class ProductAdmin(admin.ModelAdmin): 
     list_display = ('name', 'price', 'category')
-    fields = ('name', 'price', 'category', 'description', 'stripe_product_price_id', 'image',)
+    fields = ('name', 'price', 'category', 'description', 'image',)
     search_fields = ['name']
     
     
