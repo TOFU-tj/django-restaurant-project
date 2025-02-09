@@ -43,7 +43,7 @@ class UserRegistrationView(SuccessMessageMixin, CreateView):
     form_class = UserRegistrationForm
     success_url = reverse_lazy('user:login')
 
-    success_message = 'Поздравляем, вы успешно зарегистрировались'
+    success_message = 'На указанный вами email было отправлено письмо для подтверждения. Пожалуйста, перейдите по ссылке в письме, чтобы завершить процесс верификации.'
     
     
 
@@ -68,8 +68,6 @@ class EmailVerificationView(TemplateView):
 
 
 
-
-        
             
 
 
