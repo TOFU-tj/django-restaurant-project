@@ -1,5 +1,6 @@
 {% extends "main/base.html" %}
 {% load static %}
+{% load humanize %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'main/css/order_page/order_page.css' %}">
@@ -54,7 +55,7 @@
 
     <div class="summary">
         {% comment %} <p><b>Статус:</b>{{ order_status}}</p> {% endcomment %}
-        <p><b>Общая стоимость:</b> {{ order_total }}₽</p>
+        <p><b>Общая стоимость:</b> {{ order_total|intcomma }}₽</p>
         <p><b>Всего товаров: {{ order_quantity }} товаров</b></p>
     </div>
 

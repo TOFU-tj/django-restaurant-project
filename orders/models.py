@@ -1,5 +1,6 @@
 from django.db import models
 from user.models import User
+from main.models import Table
 
 class Order(models.Model):
     READY = 0 
@@ -11,8 +12,8 @@ class Order(models.Model):
         (READY, 'готово'),
     )
     
-    
-    table_number = models.IntegerField()
+    # first_name = models.ForeignKey(User,on_delete=models.CASCADE)
+    table_number = models.ForeignKey(Table, on_delete=models.CASCADE)
     basket_history = models.JSONField( default=dict)
     created = models.DateTimeField(auto_now_add=True)
     initiator = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)

@@ -1,6 +1,9 @@
+from typing import Iterable
 from django.db import models
 from user.models import User
 from django.db.models import Sum
+from django.conf import settings
+import stripe
 
 
 
@@ -32,6 +35,8 @@ class Products(models.Model):
 
     def __str__(self):
         return self.name
+        
+
     
     
     
@@ -45,6 +50,9 @@ class Table(models.Model):
 
     def __str__(self):
         return f"Стол {self.table_number}"
+    
+    
+    
 
 
 class Basket(models.Model):
@@ -64,6 +72,8 @@ class Basket(models.Model):
     
     def sum(self): 
         return self.product.price * self.quantity
+    
+
 
 
 

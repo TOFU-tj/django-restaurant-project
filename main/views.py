@@ -69,10 +69,8 @@ def order_add(request, product_id):
     baskets = Basket.objects.filter(user=request.user, product=product)
     
     if not baskets.exists():
-        # Если корзины нет, создаем новую
         Basket.objects.create(user=request.user, product=product, quantity=quantity)
     else:
-        # Если корзина уже существует, обновляем количество товара
         basket = baskets.first()
         basket.quantity += quantity
         basket.save()

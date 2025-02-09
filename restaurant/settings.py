@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-DOMAIN_NAME = "http://localhost:8000"  
+DOMAIN_NAME = "http://127.0.0.1:8000"  
 
 
 # Application definition
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'main',
     'user',
     'orders',
@@ -157,4 +158,8 @@ EMAIL_HOST_PASSWORD = "zwmj wdji dute wgrk"
 EMAIL_USE_SSL = True
 
 
-# ssl_context = ssl.create_default_context(cafile=certifi.where())
+#Stripe
+
+STRIPE_PUBLIC_KEY = 'pk_test_51QqYzjGGuVxeejZn2M14rY4vDlzvQ1wGEwIMhMWaaSE1pQWMrzR7VU4Xv0PFWRyYFNlYvDS6J3XAcEEwgVpNiU7H00dEugEKJN'
+STRIPE_SECRET_KEY = 'sk_test_51QqYzjGGuVxeejZn56fL4ch0QWjy8EUdB1meNdACAdnjaxkJUiX16RbwEh7vOdDbxoMm1XHy0bWWWzPl7pfXW1Zh00h1KEOBCX'
+STRIPE_WEBHOOK_SECRET = 'whsec_db1917df8aceee4e58dc63ee02746a3a91838b6152000d636f2707951aa2497c'

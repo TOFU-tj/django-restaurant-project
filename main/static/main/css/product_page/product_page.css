@@ -42,7 +42,7 @@
 
 .categories ul li a:hover {
     background-color: #ffffff; /* Цвет фона при наведении */
-    color: rgb(210, 42, 70); /* Цвет текста при наведении */
+    color: rgb(42, 210, 137); /* Цвет текста при наведении */
 }
 
 
